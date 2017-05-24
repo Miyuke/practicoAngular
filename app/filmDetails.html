@@ -26,17 +26,47 @@
 <body>
 
     <div class="container">
-      <div class="row row-content">        
-			Agregar el detalle del film en esta seccion
-	  </div>
-	</div>
+      <div class="row row-content" ng-controller="filmDetailController as filmCtrl">        
+		<div class="col-xs-12">
+            <div class="media-list">
+              <div class="media">
+                <div class="media-left media-middle">
+                  <a href="#">
+                    <img class="media-object img-thumbnail" width="150" height="150" ng-src={{filmCtrl.film.image}} alt="video store">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h2 class="media-heading">{{filmCtrl.film.title}}
+                    <span class="label label-danger">{{filmCtrl.film.release}}</span>
+                    <span class="badge">{{filmCtrl.film.price | currency}}</span></h2>
+                    <p>{{filmCtrl.film.description}}</p>
+                    <p>Duracion: {{filmCtrl.film.length}} minutos</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-10 col-xs-offset-2">
+              <div class="form-group">
+                <label for="usr">Ordenar por:</label>
+                  <input type="text" class="form-control" id="filterBy" name="filterBy" ng-model="filmCtrl.filterBy" placeholder="Opciones: author, rating, comment">
+              </div>
+           </div>
+           <div class="col-xs-10 col-xs-offset-2">
+              <blockquote ng-repeat="comment in filmCtrl.film.comments | orderBy: filmCtrl.filterBy">
+                <p>{{comment.rating}} Estrellas</p>
+                <p>{{comment.comment}}</p>
+                <footer>{{comment.author}}
+                  <cite title="Source Title">{{comment.date | date:'medium'}}</cite>
+                </footer>
+              </blockquote>
+          </div>
+        </div>
+	    </div>
+    </div>
 
     <script src="../bower_components/angular/angular.min.js"></script>
 
     <script>
-
         var app = angular.module('videoStore',[]);
-        
         app.controller('filmDetailController', function() {
 
             var film={
@@ -46,7 +76,7 @@
                          price:'4.99',
                          release: '2006',
                          description:'A Epic Drama of a Feminist And a Mad Scientist who must Battle a Teacher in The Canadian Rockies.',
-                         comments: [
+                         comments:[
                                {
                                    rating:5,
                                    comment:"Excelente Pelicula!!",
@@ -77,12 +107,9 @@
                                    author:"25 Cent",
                                    date:"2017-01-02T17:57:28.556094Z"
                                }
-                               
                            ]
                       };
-            
             this.film = film;
-            
         });
 
     </script>    
