@@ -1,5 +1,16 @@
 'use strict';
-var app = angular.module('videoStore', []);
+var app = angular.module('videoStore', ['ngRoute'])
+.config(Config)
+Config.$inject = ['$routeProvider']
+
+function Config($routeProvider) {
+    $routeProvider  
+    .when('/filmList', {
+        templateUrl : 'filmList.html',
+        controller  : 'HomeController'
+    })
+    .otherwise('/filmList');
+}
 app.controller('ContactController', ContactController);
 app.controller('FeedbackController', FeedbackController);
 
@@ -44,17 +55,4 @@ function FeedbackController($scope) {
                $scope.showMessage = true;
           }
      }
-}
-
-var app = angular.module('videoStore', ['ngRoute'])
-    .config(Config)
-Config.$inject = ['$routeProvider']
-
-function Config($routeProvider) {
-    $routeProvider  
-    .when('/filmList', {
-        templateUrl : 'filmList.html',
-        controller  : 'HomeController'
-    })
-    .otherwise('/filmList');
 }

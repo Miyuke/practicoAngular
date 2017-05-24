@@ -25,7 +25,8 @@
 </head>
 
 <body>
-	<div class="container">  
+	<div class="container">
+		<div ng-view="">  
 			<div class="row row-content" ng-controller="HomeController">
 				<div class="col-xs-12">
 					<button ng-click="toggleDetails()" class="btn btn-xs btn-primary pull-right" type="button">
@@ -47,7 +48,8 @@
 						</div>
 					</div>
 				</div>				
-			</div> 
+			</div>
+		</div>	 
 	</div>
 <!-- build:js scripts/main.js -->
   <script src="../bower_components/angular/angular.min.js"></script>
